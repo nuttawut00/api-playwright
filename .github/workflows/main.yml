@@ -21,17 +21,20 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run Playwright Tests
+      - name: Run Playwright Tests and Save JSON Report
         run: |
           npx playwright install --with-deps
-          npx playwright test --reporter=html
+          npx playwright test --reporter=json > result.json
         continue-on-error: true
       
-      - name: Show summary from results
+      - name: Show summary from result.json
         if: always()
         run: |
-          npx playwright test --reporter=json > result.json || true
-          cat result.json | jq '.stats'
+          echo "✅ Playwright Test Summary"
+          echo "- Total   : $(jq '.expected' result.json)"
+          echo "- Passed  : $(jq '.expected' result.json)"   
+          echo "- Failed  : $(jq '.unexpected' result.json)"
+          echo "- Skipped : $(jq '.skipped' result.json)"
 
       - name: Upload HTML report
         if: always() 
