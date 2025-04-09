@@ -26,6 +26,12 @@ jobs:
           npx playwright install --with-deps
           npx playwright test --reporter=html
         continue-on-error: true
+      
+      - name: Show summary from results
+        if: always()
+        run: |
+          npx playwright test --reporter=json > result.json || true
+          cat result.json | jq '.stats'
 
       - name: Upload HTML report
         if: always() 
