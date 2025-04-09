@@ -24,9 +24,9 @@ jobs:
       - name: Run Playwright Tests and Save JSON Report
         run: |
           npx playwright install --with-deps
-          npx playwright test --reporter=json > result.json
+          npx playwright test --reporter=json,html > result.json
         continue-on-error: true
-      
+
       - name: Show summary from result.json
         if: always()
         run: |
@@ -36,8 +36,11 @@ jobs:
           echo "- Failed  : $(jq '.unexpected' result.json)"
           echo "- Skipped : $(jq '.skipped' result.json)"
 
+      - name: List files in workspace
+        run: ls -al && ls -al playwright-report || echo "No playwright-report directory"
+
       - name: Upload HTML report
-        if: always() 
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
