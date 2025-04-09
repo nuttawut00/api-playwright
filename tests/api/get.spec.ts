@@ -5,7 +5,7 @@ test('GET /posts/1', async ({ request }) => {
   const response = await request.get('https://jsonplaceholder.typicode.com/posts/1');
 
   // ตรวจสอบสถานะการตอบกลับจาก API
-  expect(response.status()).toBe(200); // คำขอ GET ควรได้รับสถานะ 200 (OK)
+  expect(response.status()).toBe(200); 
   
   // ตรวจสอบข้อมูลใน body ของการตอบกลับ
   const responseBody = await response.json();
