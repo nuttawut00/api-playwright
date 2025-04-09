@@ -1,8 +1,10 @@
 import { test, expect } from "@playwright/test";
+// import validRequestData from "../requests/data.json";
 test("PATCH /posts/1", async ({ request }) => {
   // ข้อมูลที่ต้องการอัปเดตบางส่วน
   const updatedData = {
     title: "aaa",
+    // title: validRequestData.title, วิธีเรียกใช้ data จากไฟล์ data.json
   };
 
   // ส่งคำขอ PATCH ไปที่ API
