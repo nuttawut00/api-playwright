@@ -30,11 +30,11 @@ jobs:
       - name: Show summary from result.json
         if: always()
         run: |
-          echo "✅ Playwright Test Summary"
-          echo "- Total   : $(jq '.expected' result.json)"
-          echo "- Passed  : $(jq '.expected' result.json)"   
-          echo "- Failed  : $(jq '.unexpected' result.json)"
-          echo "- Skipped : $(jq '.skipped' result.json)"
+         echo "✅ Playwright Test Summary"
+         echo "- Total   : $(jq '.stats.expected' result.json)"
+         echo "- Passed  : $(jq '.stats.expected' result.json)"   # ปรับเป็น dynamic ได้
+         echo "- Failed  : $(jq '.stats.unexpected' result.json)"
+         echo "- Skipped : $(jq '.stats.skipped' result.json)"
 
       - name: List files in workspace
         run: ls -al && ls -al playwright-report || echo "No playwright-report directory"
